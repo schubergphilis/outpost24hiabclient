@@ -31,7 +31,7 @@ class HiabClient:
                                                 suffix=self.__class__.__name__)
         self._logger = logging.getLogger(logger_name)
         self.url = url
-        self.api = '{host}/opi/XMLAPI'.format(host = host)
+        self.api = '{url}/opi/XMLAPI'.format(url = url)
         self.token = token
         self.session = self._setup_session()
 
