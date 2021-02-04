@@ -1,11 +1,11 @@
-============
+===================
 outpost24hiabclient
-============
+===================
 
 A python library for interfacing with Outpost24 HIAB api
 
 
-* Documentation: https://outpost24hiablib.readthedocs.org/en/latest
+* Documentation: https://outpost24hiabclient.readthedocs.org/en/latest
 
 
 Project Features
