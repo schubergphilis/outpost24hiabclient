@@ -15,18 +15,20 @@ from ..entities.targets_tree import TargetsTree, TargetGroupNode, TargetNode
 
 class Targets:
 
-    def __init__(self, hiabclient):
+    def __init__(self, url, token):
         self._logger = log.getLogger(__name__)
-        self._hiabclient = hiabclient
-        self.refresh()
+        self._hiabclient = HiabClient(url, token)
 
     def get_targets_tree(self):
+        self.refresh()
         return self._targetgroups_tree
 
     def get_target_nodes(self):
+        self.refresh()
         return self._targetgroups_tree.get_all_target_nodes()
 
     def get_targetgroup_nodes(self):
+        self.refresh()
         return self._targetgroups_tree.get_all_targetgroup_nodes()
 
     def create_targetgroup_node_from_fq_string(self, fq):
@@ -37,6 +39,7 @@ class Targets:
 
         targetgroupnamecomponents = fq.split('\\')
 
+        self.refresh()
         targetgroup_node = self._targetgroups_tree.get_root_node()
         i=1
         while(i<len(targetgroupnamecomponents)-1):
@@ -60,6 +63,7 @@ class Targets:
         return targetgroup_node
 
     def create_target_node(self, targetaddress, targetgroup_name, scanner_name, dnslookup):
+        self.refresh()
         scanner = self.get_scanner_by_name(scanner_name)
         targetgroup_node = self._targetgroups_tree.get_targetgroup_node_from_fq_string(targetgroup_name)
         targetgroup = targetgroup_node.get_targetgroup()
@@ -99,18 +103,18 @@ class Targets:
 
 
     def refresh(self):
-        treebuilder = TargetsTreeBuilder(self._hiabclient)
-        self._targetgroups_tree = treebuilder.build_tree()
-        self._scanners = self._hiabclient.get_scanners()
+        if (not hasattr(self, '_targetgroups_tree')):
+            treebuilder = TargetsTreeBuilder(self._hiabclient)
+            self._targetgroups_tree = treebuilder.build_tree()
 
     def get_scanner_by_name(self, scanner_name):
-        for s in self._scanners:
+        for s in self._hiabclient.get_scanners():
             if(s.name == scanner_name):
                 return s
         return None
 
     def get_scanner_by_id(self, scanner_id):
-        for s in self._scanners:
+        for s in self._hiabclient.get_scanners():
             if(s.xid == scanner_id):
                 return s
         return None

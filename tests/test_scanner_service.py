@@ -2,6 +2,7 @@ import unittest
 from outpost24hiabclient.entities.scanner import Scanner
 from outpost24hiabclient.clients.hiabclient import HiabClient
 from outpost24hiabclient import Scanners
+from unittest.mock import patch
 
 import xml.etree.ElementTree as ET
 
@@ -64,8 +65,12 @@ class HiabClientTest:
 
 class ScannerServiceTests(unittest.TestCase):
 
+    @patch.object(HiabClient, '__init__', lambda x, y, z: None)
     def setUp(self):
-        self.scanner_service = Scanners(HiabClientTest())
+        service = Scanners("url", "token")
+        # now we mock the HiabClient within the service class
+        service._hiabclient = HiabClientTest()
+        self.scanner_service = service
 
 
     def test_parse_xml_data(self):

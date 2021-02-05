@@ -8,12 +8,14 @@ from ..entities.scanner import Scanner
 
 class Scanners:
 
-    def __init__(self, hiabclient):
+    def __init__(self, url, token):
         self._logger = log.getLogger(__name__)
-        self._hiabclient = hiabclient
+        self._hiabclient = HiabClient(url, token)
+
 
     def get_scanners(self):
         return self._hiabclient.get_scanners()
+
 
     def get_scanner_by_name(self, scanner_name):
         scanners = self._hiabclient.get_scanners()
@@ -21,6 +23,7 @@ class Scanners:
             if(s.name == scanner_name):
                 return s
         return None
+
 
     def get_scanner_by_id(self, scanner_id):
         scanners = self._hiabclient.get_scanners()

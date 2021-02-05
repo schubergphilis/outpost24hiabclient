@@ -11,9 +11,9 @@ from ..entities.usergroup import UserGroup
 
 class Users:
 
-    def __init__(self, hiabclient):
+    def __init__(self, url, token):
         self._logger = log.getLogger(__name__)
-        self._hiabclient = hiabclient
+        self._hiabclient = HiabClient(url, token)
 
     def get_users(self):
         self._logger.critical("test")
