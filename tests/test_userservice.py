@@ -1,9 +1,8 @@
 import unittest
 from outpost24hiabclient.entities.user import User
 from outpost24hiabclient.entities.usergroup import UserGroup
-from outpost24hiabclient.services.user_service import UserService
+from outpost24hiabclient import Users
 
-import logging
 import xml.etree.ElementTree as ET
 
 class HiabClientTest:
@@ -29,7 +28,7 @@ class HiabClientTest:
 class UserServiceTests(unittest.TestCase):
 
     def setUp(self):
-        self.user_service = UserService(HiabClientTest())
+        self.user_service = Users(HiabClientTest())
 
     def test_get_users_in_usergroup(self):
         usergroups = self.user_service.get_usergroups()

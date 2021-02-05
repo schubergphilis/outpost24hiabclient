@@ -2,30 +2,21 @@
 # -*- coding: utf-8 -*-
 # File: targetstree_service.py
 
-import logging
 from requests import Session
 import xml.etree.ElementTree as ET
 import json
 import multiprocessing
 from joblib import Parallel, delayed
 
-from ..tools import xmltools
+from ..tools import (xmltools, log)
 from outpost24hiabclient.clients.hiabclient import HiabClient
 from ..entities.targets_tree import TargetsTree, TargetGroupNode, TargetNode
 
 
-
-LOGGER_BASENAME = '''outpost24hiabclient'''
-LOGGER = logging.getLogger(LOGGER_BASENAME)
-LOGGER.addHandler(logging.NullHandler())
-
-class TargetService:
+class Targets:
 
     def __init__(self, hiabclient):
-        logger_name = u'{base}.{suffix}'.format(base=LOGGER_BASENAME,
-                                                suffix=self.__class__.__name__)
-        logging.config.fileConfig('logging.conf')
-        self._logger = logging.getLogger(logger_name)
+        self._logger = log.getLogger(__name__)
         self._hiabclient = hiabclient
         self.refresh()
 
@@ -128,11 +119,7 @@ class TargetsTreeBuilder:
     
     def __init__(self, op24lib):
         self._hiabclient = op24lib
-        logging.config.fileConfig('logging.conf')
-        logger_name = u'{base}.{suffix}'.format(base=LOGGER_BASENAME,
-                                                suffix=self.__class__.__name__)
-        self._logger = logging.getLogger(logger_name)
-
+        self._logger = log.getLogger(__name__)
         self._targetgroups_targets = []
 
     def build_tree(self):

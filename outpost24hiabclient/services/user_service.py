@@ -1,30 +1,22 @@
-import logging
 from requests import Session
 import xml.etree.ElementTree as ET
 import json
 
 
-from ..tools import xmltools
+from ..tools import (xmltools, log)
 from outpost24hiabclient.clients.hiabclient import HiabClient
 from ..entities.user import User
 from ..entities.usergroup import UserGroup
 
 
-
-LOGGER_BASENAME = '''outpost24hiabclient'''
-LOGGER = logging.getLogger(LOGGER_BASENAME)
-LOGGER.addHandler(logging.NullHandler())
-
-class UserService:
+class Users:
 
     def __init__(self, hiabclient):
-        logger_name = u'{base}.{suffix}'.format(base=LOGGER_BASENAME,
-                                                suffix=self.__class__.__name__)
-        logging.config.fileConfig('logging.conf')
-        self._logger = logging.getLogger(logger_name)
+        self._logger = log.getLogger(__name__)
         self._hiabclient = hiabclient
 
     def get_users(self):
+        self._logger.critical("test")
         return self._hiabclient.get_users()
 
     def get_user_by_username(self, username):

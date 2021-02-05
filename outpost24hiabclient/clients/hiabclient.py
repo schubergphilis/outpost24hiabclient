@@ -1,35 +1,24 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# File: xmlclient.py
-
+# File: hiabclient.py
 import logging
-
-import logging.config
 from requests import Session
 import xml.etree.ElementTree as ET
 import os
 import json
-
 from ..exceptions.exceptions import AuthFailed
-
 from ..entities.user import User
 from ..entities.usergroup import UserGroup
 from ..entities.target import Target
 from ..entities.targetgroup import TargetGroup
 from ..entities.scanner import Scanner
-
-from ..tools import xmltools
-
-LOGGER_BASENAME = '''hiabclient'''
+from ..tools import (xmltools, log)
 
 
 class HiabClient:
 
     def __init__(self, url, token):
-        logging.config.fileConfig('logging.conf')
-        logger_name = u'{base}.{suffix}'.format(base=LOGGER_BASENAME,
-                                                suffix=self.__class__.__name__)
-        self._logger = logging.getLogger(logger_name)
+        self._logger = log.getLogger(__name__)
         self.url = url
         self.api = '{url}/opi/XMLAPI'.format(url = url)
         self.token = token

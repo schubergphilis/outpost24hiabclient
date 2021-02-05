@@ -1,4 +1,3 @@
-import logging
 import datetime
 
 import xml.etree.ElementTree as ET

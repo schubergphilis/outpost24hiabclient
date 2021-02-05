@@ -3,9 +3,8 @@ from outpost24hiabclient.entities.target import Target
 from outpost24hiabclient.entities.targetgroup import TargetGroup
 from outpost24hiabclient.entities.scanner import Scanner
 from outpost24hiabclient.clients.hiabclient import HiabClient
-from outpost24hiabclient.services.target_service import TargetService
+from outpost24hiabclient import Targets
 
-import logging
 import xml.etree.ElementTree as ET
 
 class HiabClientTest:
@@ -121,7 +120,7 @@ class HiabClientTest:
 class TargetServiceTests(unittest.TestCase):
 
     def setUp(self):
-        self.target_service = TargetService(HiabClientTest())
+        self.target_service = Targets(HiabClientTest())
 
     def test_get_targets_tree(self):
         targets_tree = self.target_service.get_targets_tree()
@@ -151,7 +150,7 @@ class TargetTreeTests(unittest.TestCase):
 
     def setUp(self):
         self.hiabclient = HiabClientTest()
-        self.target_service = TargetService(self.hiabclient)
+        self.target_service = Targets(self.hiabclient)
         self.targets_tree = self.target_service.get_targets_tree()
 
 

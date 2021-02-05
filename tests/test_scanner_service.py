@@ -1,9 +1,8 @@
 import unittest
 from outpost24hiabclient.entities.scanner import Scanner
 from outpost24hiabclient.clients.hiabclient import HiabClient
-from outpost24hiabclient.services.scanner_service import ScannerService
+from outpost24hiabclient import Scanners
 
-import logging
 import xml.etree.ElementTree as ET
 
 class HiabClientTest:
@@ -66,7 +65,7 @@ class HiabClientTest:
 class ScannerServiceTests(unittest.TestCase):
 
     def setUp(self):
-        self.scanner_service = ScannerService(HiabClientTest())
+        self.scanner_service = Scanners(HiabClientTest())
 
 
     def test_parse_xml_data(self):
