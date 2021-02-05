@@ -1,5 +1,3 @@
-
-
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
@@ -12,38 +10,19 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-import sys
-import os
-
-# If extensions (or modules to document with autodoc) are in another
-# directory, add these directories to sys.path here. If the directory is
-# relative to the documentation root, use os.path.abspath to make it
-# absolute, like shown here.
-#sys.path.insert(0, os.path.abspath('.'))
-
-# Get the project root dir, which is the parent dir of this
-cwd = os.getcwd()
-project_root = os.path.dirname(cwd)
-
-# Run apidoc to traverse the project directory and add all modules to the docs
-import sphinx.apidoc
-
-sphinx.apidoc.main(argv=['-f', '-o', os.path.join(project_root, 'docs'),
-                             os.path.join(project_root, '''outpost24hiabclient''')])
-
-# Insert the project root dir as the first element in the PYTHONPATH.
-# This lets us ensure that the source package is imported, and that its
-# version is used.
-sys.path.insert(0, project_root)
-
-import outpost24hiabclient
+# import os
+# import sys
+# sys.path.insert(0, os.path.abspath('.'))
 
 
 # -- Project information -----------------------------------------------------
 
 project = 'outpost24hiabclient'
-copyright = '2020, Theodoor Scholte'
+copyright = '2021, Theodoor Scholte'
 author = 'Theodoor Scholte'
+
+# The full version, including alpha/beta/rc tags
+release = '0.1'
 
 
 # -- General configuration ---------------------------------------------------
@@ -52,10 +31,7 @@ author = 'Theodoor Scholte'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.viewcode',
-    'sphinx.ext.napoleon',
-    'sphinx.ext.todo'
+    'sphinxcontrib.apidoc'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -80,4 +56,7 @@ html_theme = 'alabaster'
 html_static_path = ['_static']
 
 
-autodoc_mock_imports = ["joblib"]
+apidoc_module_dir = '../outpost24hiabclient'
+apidoc_output_dir = '_build'
+apidoc_excluded_paths = ['tests']
+apidoc_separate_modules = True
