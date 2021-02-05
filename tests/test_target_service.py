@@ -3,9 +3,9 @@ from outpost24hiabclient.entities.target import Target
 from outpost24hiabclient.entities.targetgroup import TargetGroup
 from outpost24hiabclient.entities.scanner import Scanner
 from outpost24hiabclient.clients.hiabclient import HiabClient
-from outpost24hiabclient.services.target_service import TargetService
+from outpost24hiabclient import (Targets, TargetsTreeBuilder)
+from unittest.mock import patch
 
-import logging
 import xml.etree.ElementTree as ET
 
 class HiabClientTest:
@@ -120,8 +120,12 @@ class HiabClientTest:
 
 class TargetServiceTests(unittest.TestCase):
 
+    @patch.object(HiabClient, '__init__', lambda x, y, z: None)
     def setUp(self):
-        self.target_service = TargetService(HiabClientTest())
+        service = Targets("url", "token")
+        # now we mock the HiabClient within the service class
+        service._hiabclient = HiabClientTest()
+        self.target_service = service
 
     def test_get_targets_tree(self):
         targets_tree = self.target_service.get_targets_tree()
@@ -149,9 +153,12 @@ class TargetServiceTests(unittest.TestCase):
 
 class TargetTreeTests(unittest.TestCase):
 
+    @patch.object(HiabClient, '__init__', lambda x, y, z: None)
     def setUp(self):
-        self.hiabclient = HiabClientTest()
-        self.target_service = TargetService(self.hiabclient)
+        service = Targets("url", "token")
+        # now we mock the HiabClient within the service class
+        service._hiabclient = HiabClientTest()
+        self.target_service = service
         self.targets_tree = self.target_service.get_targets_tree()
 
 

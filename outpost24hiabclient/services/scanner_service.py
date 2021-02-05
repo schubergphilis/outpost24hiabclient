@@ -1,30 +1,21 @@
-import logging
 from requests import Session
 import xml.etree.ElementTree as ET
 import json
-
-
-from ..tools import xmltools
+from ..tools import (xmltools, log)
 from outpost24hiabclient.clients.hiabclient import HiabClient
 from ..entities.scanner import Scanner
 
 
+class Scanners:
 
-LOGGER_BASENAME = '''outpost24hiabclient'''
-LOGGER = logging.getLogger(LOGGER_BASENAME)
-LOGGER.addHandler(logging.NullHandler())
+    def __init__(self, url, token):
+        self._logger = log.getLogger(__name__)
+        self._hiabclient = HiabClient(url, token)
 
-class ScannerService:
-
-    def __init__(self, hiabclient):
-        logger_name = u'{base}.{suffix}'.format(base=LOGGER_BASENAME,
-                                                suffix=self.__class__.__name__)
-        logging.config.fileConfig('logging.conf')
-        self._logger = logging.getLogger(logger_name)
-        self._hiabclient = hiabclient
 
     def get_scanners(self):
         return self._hiabclient.get_scanners()
+
 
     def get_scanner_by_name(self, scanner_name):
         scanners = self._hiabclient.get_scanners()
@@ -32,6 +23,7 @@ class ScannerService:
             if(s.name == scanner_name):
                 return s
         return None
+
 
     def get_scanner_by_id(self, scanner_id):
         scanners = self._hiabclient.get_scanners()

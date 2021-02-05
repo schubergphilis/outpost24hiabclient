@@ -9,7 +9,11 @@ from outpost24hiabclient.clients.hiabclient import HiabClient
 class TestOutpost24Hiab(unittest.TestCase):
 
     def setUp(self):
-        logging.config.fileConfig('logging.conf')
+        logging.basicConfig(level = logging.INFO, 
+                    format = '%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s',
+                    handlers=[
+                        logging.StreamHandler()
+                    ])
         logger = logging.getLogger('simple')
         mode = os.environ["SYNC_MODE"]
         config = ConfigParser()

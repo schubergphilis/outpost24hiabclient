@@ -1,4 +1,3 @@
-import logging
 import outpost24hiabclient.tools.xmltools as xmltools
 
 import xml.etree.ElementTree as ET

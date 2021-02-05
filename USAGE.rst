@@ -5,18 +5,13 @@ Usage
 To use outpost24hiabclient in a project:
 
 .. code-block:: python
-
-    from outpost24hiabclient.clients.hiabclient import HiabClient
-    hiabclient = HiabClient(url, token)
-
-
-    # Working with users and usergroups
+  # Working with users and usergroups
+	from outpost24hiabclient import Users
 	from outpost24hiabclient.entities.user import User
 	from outpost24hiabclient.entities.usergroup import UserGroup
-	from outpost24hiabclient.services.user_service import UserService
 	
 	# enumerate users in Outpost24 HIAB
-	user_service = UserService(hiabclient)
+	user_service = Users(url, token)
 	users = user_service.get_users()
 	for user in users:
 		print(user.vcusername)
@@ -41,15 +36,18 @@ To use outpost24hiabclient in a project:
 	# delete users
 	isdeleted = user_service.delete_users([USER_OBJECT])
 	
+
 	# Working with scanners
+	from outpost24hiabclient import Scanners
 	from outpost24hiabclient.entities.scanner import Scanner
-	from outpost24hiabclient.services.scanner_service import ScannerService
 	
 	# enumerate scanners in Outpost24 HIAB
-	scanner_service = ScannerService(hiabclient)
+	scanner_service = Scanners(url, token)
 	scanners = scanner_service.get_scanners()
+
 	
 	# Working with targets and targetgroups
+	from outpost24hiabclient import Targets
 	from outpost24hiabclient.entities.target import Target
 	from outpost24hiabclient.entities.targetgroup import TargetGroup
 	from outpost24hiabclient.entities.targets_tree import TargetsTree
@@ -57,7 +55,7 @@ To use outpost24hiabclient in a project:
 	from outpost24hiabclient.entities.targets_tree import TargetNode
 	
 	# enumerate targetgroups in Outpost24 HIAB
-	target_service = TargetService(hiabclient)
+	target_service = Targets(url, token)
 	targetgroup_nodes = target_service.get_targetgroup_nodes()
 	for targetgroup_node in targetgroup_nodes:
 		print(targetgroup_node.get_targetgroup().name)
