@@ -9,11 +9,11 @@ from ..entities.user import User
 from ..entities.usergroup import UserGroup
 
 
-class Users:
+class UserService:
 
-    def __init__(self, url, token):
+    def __init__(self, hiabclient):
         self._logger = log.getLogger(__name__)
-        self._hiabclient = HiabClient(url, token)
+        self._hiabclient = hiabclient
 
     def get_users(self):
         self._logger.critical("test")

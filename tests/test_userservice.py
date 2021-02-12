@@ -1,7 +1,7 @@
 import unittest
 from outpost24hiabclient.entities.user import User
 from outpost24hiabclient.entities.usergroup import UserGroup
-from outpost24hiabclient import Users
+from outpost24hiabclient import UserService
 from outpost24hiabclient.clients.hiabclient import HiabClient
 from unittest.mock import patch
 
@@ -29,12 +29,9 @@ class HiabClientTest:
 
 class UserServiceTests(unittest.TestCase):
 
-    @patch.object(HiabClient, '__init__', lambda x, y, z: None)
     def setUp(self):
-        service = Users("url", "token")
-        # now we mock the HiabClient within the service class
-        service._hiabclient = HiabClientTest()
-        self.user_service = service
+        hiabclient = HiabClientTest()
+        self.user_service = UserService(hiabclient)
 
     def test_get_users_in_usergroup(self):
         usergroups = self.user_service.get_usergroups()

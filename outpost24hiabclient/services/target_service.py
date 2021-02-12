@@ -13,11 +13,11 @@ from outpost24hiabclient.clients.hiabclient import HiabClient
 from ..entities.targets_tree import TargetsTree, TargetGroupNode, TargetNode
 
 
-class Targets:
+class TargetService:
 
-    def __init__(self, url, token):
+    def __init__(self, hiabclient):
         self._logger = log.getLogger(__name__)
-        self._hiabclient = HiabClient(url, token)
+        self._hiabclient = hiabclient
 
     def get_targets_tree(self):
         self.refresh()
