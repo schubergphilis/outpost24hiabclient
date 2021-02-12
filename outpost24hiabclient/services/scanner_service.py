@@ -6,11 +6,11 @@ from outpost24hiabclient.clients.hiabclient import HiabClient
 from ..entities.scanner import Scanner
 
 
-class Scanners:
+class ScannerService:
 
-    def __init__(self, url, token):
+    def __init__(self, hiabclient):
         self._logger = log.getLogger(__name__)
-        self._hiabclient = HiabClient(url, token)
+        self._hiabclient = hiabclient
 
 
     def get_scanners(self):

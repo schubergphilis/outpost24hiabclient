@@ -1,10 +1,12 @@
 from .exceptions.exceptions import AuthFailed
-from .services.user_service import Users
-from .services.target_service import (Targets, TargetsTreeBuilder)
-from .services.scanner_service import Scanners
+from .services.user_service import UserService
+from .services.target_service import (TargetService, TargetsTreeBuilder)
+from .services.scanner_service import ScannerService
+from .clients.hiabclient import HiabClient 
 
 assert AuthFailed
-assert Scanners
-assert Users
-assert Targets
+assert ScannerService
+assert UserService
+assert TargetService
 assert TargetsTreeBuilder
+assert HiabClient
